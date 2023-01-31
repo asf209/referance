@@ -1,0 +1,12 @@
+<template data-sly-template.template="${ @ socialUrl, socialTitle, socialIconId, network}">
+    <a class="text-gray d-inline-flex mx-2 mx-sm-3" target="_blank" href="${socialUrl}"
+       data-tealium-track="footer-social-cta" data-network="${network}">
+        <svg style="height: 24px; width: 24px;">
+            <title id="${socialIconId}">${socialTitle}</title>
+            <use xlink:href="/etc/clientlibs/amadeus/commons/site/css/sprites/symbol/icons.svg#${socialIconId}"
+                 xmlns:xlink="http://www.w3.org/1999/xlink"></use>
+        </svg>
+    </a>
+</template>
+
+
