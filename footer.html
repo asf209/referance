@@ -1,0 +1,191 @@
+<div data-sly-test="${wcmmode.edit}">[ Edit ${component.title} Component ]</div>
+<sly data-sly-use.footerModel="${'com.amadeus.commons.models.FooterModel'}" />
+<sly data-sly-test.siteIcon="${properties.t3ch ? 't3ch_logo' : properties.siteIcon}" />
+<sly data-sly-test.alternativeStyle="${properties.t3ch || properties.footerStyle == 'alternative'}" />
+<sly data-sly-test.defaultStyle="${!alternativeStyle && (!properties.footerStyle || properties.footerStyle == 'default')}" />
+
+<div class="footer-component" data-componentname="${component.name}" data-componenttitle="${component.title}"
+     data-preferences-modal-title="${properties.langCountryTitle || 'Select a language and a location' @ i18n}"
+     data-no-location-msg="${'Enter your location' @ i18n}">
+    <div class="${defaultStyle ? 'py-7' : 'pb-7'}">
+        <div class="container">
+            <h2 class="sr-only">${component.description @ i18n}</h2>
+
+            <div data-sly-test="${defaultStyle}" class="row justify-content-center mb-7 mb-md-6 d-print-none">
+
+                <div class="col-12 col-md-3 col-lg mb-2 mb-md-0">
+                    <div data-tealium-track="link-list-cta"
+                        data-sly-resource="${'link-list-1' @ resourceType='amadeus/commons/components/content/modules/link-list'}">
+                    </div>
+                </div>
+
+                <div class="col-12 col-md-3 col-lg mb-2 mb-md-0">
+                    <div data-tealium-track="link-list-cta"
+                        data-sly-resource="${'link-list-2' @ resourceType='amadeus/commons/components/content/modules/link-list'}">
+                    </div>
+                </div>
+                <div class="col-12 col-md-3 col-lg mb-2 mb-md-0">
+                    <div data-tealium-track="link-list-cta"
+                        data-sly-resource="${'link-list-3' @ resourceType='amadeus/commons/components/content/modules/link-list'}">
+                    </div>
+                </div>
+                <div class="col-12 col-md-3 col-lg mb-2 mb-md-0">
+                    <div data-tealium-track="link-list-cta"
+                        data-sly-resource="${'link-list-4' @ resourceType='amadeus/commons/components/content/modules/link-list'}">
+                    </div>
+                </div>
+                <div class="col-12 col-sm-8 col-md-6 col-lg mt-4 mt-lg-0" data-sly-test="${properties.modalFormPath}">
+                    <sly data-sly-use.sform="../modalFormTemplate/modalFormTemplate.html"/>
+                    <sly
+                        data-sly-call="${sform.formSubscription @ path=properties.modalFormPath, title=properties.modalFormTitle, unsubscribe=properties.modalFormUnsubscribe, id='modalFormId', buttonLabel=properties.modalFormButton}"></sly>
+
+                    <sly data-sly-test.subtext="${properties.signupDescription || 'Sign up for the latest industry news and insights' @ i18n}"/>
+
+                    <h3 class="h5 font-amadeus mb-md-2 mb-lg-3">${properties.signupTitle || 'Sign up' @ i18n}</h3>
+                    <p class="small text-secondary">${subtext}</p>
+                    <a class="btn btn-outline-primary btn-block" id="sformButton" role="button" href="#social-media"
+                            data-tealium-track="news-subscribe"
+                            data-subtext="${subtext}">
+                        ${properties.signUpBtn || 'Sign up' @ i18n}
+                    </a>
+                </div>
+            </div>
+
+            <hr data-sly-test="${defaultStyle}" class="my-0"/>
+            <div
+                class="footer-social d-print-none row align-items-center justify-content-center justify-content-md-between my-6 my-md-5 my-lg-5">
+                <div class="col-auto order-1 order-md-3 mb-5 mb-md-0">
+                    <div class="d-flex align-items-center" data-sly-use.socialMedia="socialMedia.html">
+                        <sly
+                            data-sly-call="${socialMedia.template @ socialUrl=properties.facebookURL, socialTitle=properties.facebookIconTitle || 'Facebook', socialIconId='ic_facebook', network='Facebook'}"></sly>
+                        <sly
+                            data-sly-call="${socialMedia.template @ socialUrl=properties.twitterURL, socialTitle=properties.twitterIconTitle || 'Twitter', socialIconId='ic_twitter', network='Twitter'}"></sly>
+                        <sly
+                            data-sly-call="${socialMedia.template @ socialUrl=properties.linkedinURL, socialTitle=properties.linkedinIconTitle || 'LinkedIn', socialIconId='ic_linkedin', network='LinkedIn'}"></sly>
+                        <sly
+                            data-sly-call="${socialMedia.template @ socialUrl=properties.youtubeURL, socialTitle=properties.youtubeIconTitle || 'YouTube', socialIconId='ic_youtube', network='YouTube'}"></sly>
+
+                        <a class="btn btn-sm text-uppercase d-inline-flex align-items-center p-0 ml-2 ml-sm-3"
+                           href="${properties.viewAllPath}">
+                            ${properties.viewAllLabel || 'See all' @ i18n}
+                            <svg class="icon-h-3 icon-w-3">
+                                <use
+                                    xlink:href="/etc/clientlibs/amadeus/commons/site/css/sprites/symbol/icons.svg#ic_arrow_forward"
+                                    xmlns:xlink="http://www.w3.org/1999/xlink"></use>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+                <div class="w-100 d-sm-none order-2"></div>
+                <div class="col-auto order-3 order-md-1">
+                    <div data-sly-test="${defaultStyle}" class="d-flex align-items-center">
+                        <svg class="mr-2 icon-h-3 icon-w-3">
+                            <use xlink:href="/etc/clientlibs/amadeus/commons/site/css/sprites/symbol/icons.svg#ic_language"
+                                 xmlns:xlink="http://www.w3.org/1999/xlink"></use>
+                        </svg>
+                        <button class="btn btn-link d-flex align-items-center p-0 js-preferences"
+                                data-tealium-track="preference-update">
+                            <span class="language">
+                                ${currentPage.language.displayLanguage @ i18n}
+                            </span>
+                            <svg class="text-info icon-h-3 icon-w-3">
+                                <use
+                                    xlink:href="/etc/clientlibs/amadeus/commons/site/css/sprites/symbol/icons.svg#ic_vertical_bar"
+                                    xmlns:xlink="http://www.w3.org/1999/xlink"></use>
+                            </svg>
+                            <span class="location">
+                            </span>
+                        </button>
+                    </div>
+                    <div data-sly-test="${alternativeStyle}" class="row justify-content-center ml-0">
+                        <div class="d-flex align-items-center">
+                            <a  href="//amadeus.com/en" class="small">Amadeus.com</a>
+                            <svg class="text-gray icon-h-4 icon-w-4">
+                                <use xlink:href="/etc/clientlibs/amadeus/commons/site/css/sprites/symbol/icons.svg#ic_external_link"
+                                     xmlns:xlink="http://www.w3.org/1999/xlink"></use>
+                            </svg>
+                            <svg class="text-pacific icon-h-4 icon-w-4 hide-down-xxs">
+                                <use xlink:href="/etc/clientlibs/amadeus/commons/site/css/sprites/symbol/icons.svg#ic_vertical_bar"
+                                     xmlns:xlink="http://www.w3.org/1999/xlink"></use>
+                            </svg>
+
+                        </div>
+                        <div class="w-100 d-none show-down-xxs"></div>
+                        <div class="d-flex align-items-center">
+                            <a href="//jobs.amadeus.com" class="small">Careers</a>
+                            <svg class="text-gray icon-h-4 icon-w-4">
+                                <use xlink:href="/etc/clientlibs/amadeus/commons/site/css/sprites/symbol/icons.svg#ic_external_link"
+                                     xmlns:xlink="http://www.w3.org/1999/xlink"></use>
+                            </svg>
+                            <svg class="text-pacific icon-h-4 icon-w-4">
+                                <use xlink:href="/etc/clientlibs/amadeus/commons/site/css/sprites/symbol/icons.svg#ic_vertical_bar"
+                                     xmlns:xlink="http://www.w3.org/1999/xlink"></use>
+                            </svg>
+                            <a href="//corporate.amadeus.com/en" class="small">Corporate</a>
+                            <svg class="text-gray icon-h-4 icon-w-4">
+                                <use xlink:href="/etc/clientlibs/amadeus/commons/site/css/sprites/symbol/icons.svg#ic_external_link"
+                                     xmlns:xlink="http://www.w3.org/1999/xlink"></use>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr class="my-0">
+            <div class="row align-items-baseline ${alternativeStyle ? 'justify-content-md-between' : 'justify-content-lg-between'}">
+                <div class="col-12 ${alternativeStyle ? 'col-md-auto' : 'col-lg-auto'}">
+                    <div
+                        class="row align-items-baseline justify-content-center justify-content-md-between mt-6 mt-md-5 mt-lg-4 mb-5 mb-md-4 mb-lg-3">
+                        <sly data-sly-test="${alternativeStyle && siteIcon}">
+                            <div data-sly-test="${siteIcon}" class="col-auto text-primary pr-0 mb-1 mb-md-0">
+                                <a href="${footerModel.homePage.path}">
+                                    <svg height="12px" width="50px">
+                                        <use
+                                            xlink:href="/etc/clientlibs/amadeus/commons/site/css/sprites/symbol/icons.svg#${siteIcon}"
+                                            xmlns:xlink="http://www.w3.org/1999/xlink"></use>
+                                    </svg>
+                                    <span class="sr-only">${properties.iconText}</span>
+                                </a>
+                            </div>
+                            <svg class="text-pacific icon-h-4 icon-w-4 align-self-md-center align-self-start">
+                                <use xlink:href="/etc/clientlibs/amadeus/commons/site/css/sprites/symbol/icons.svg#ic_vertical_bar"
+                                     xmlns:xlink="http://www.w3.org/1999/xlink"></use>
+                            </svg>
+                        </sly>
+                        <div class="col-auto text-primary pr-lg-0 mb-1 mb-md-0 ${alternativeStyle && siteIcon ? 'pl-1' : ''}">
+                            <a data-sly-unwrap="${alternativeStyle}" href="${footerModel.homePage.path}">
+                                <svg height="12px" width="90px">
+                                    <use
+                                        xlink:href="/etc/clientlibs/amadeus/commons/site/css/sprites/symbol/icons.svg#amadeus_logo"
+                                        xmlns:xlink="http://www.w3.org/1999/xlink"></use>
+                                </svg>
+                                <span class="sr-only">Amadeus</span>
+                            </a>
+                        </div>
+                        <div class="w-100 d-md-none"></div>
+                        <div class="col-auto">
+                            <p class="small m-0">© ${properties.copyright || 'Amadeus IT Group SA' @ i18n}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 ${alternativeStyle ? 'col-md-auto' : 'col-lg-auto'}">
+                    <div class="row justify-content-md-between d-print-none"
+                         data-sly-use.multifieldHelper="${'com.amadeus.commons.models.MultifieldHelper' @ multifieldNodeName='legalLinks'}">
+                        <sly data-sly-list.link="${multifieldHelper.itemsList}">
+                            <div class="text-center ${alternativeStyle ? 'mb-3 mr-0 align-items-center col-lg-auto' : 'col-6 col-md-auto'} ${multifieldHelper.itemsSize > 2 ? 'col-sm-4' : ''}">
+                                <a data-sly-use.linkTranslator="${'/apps/amadeus/commons/components/utils/linkTranslator.js' @  url=link.linkPath, page=currentPage}"
+                                   class="small text-secondary d-inline-flex"
+                                   href="${linkTranslator.translatedLink}" target="${link.target || '_self'}">
+                                    ${link.linkText @ i18n}
+                                    <svg data-sly-test="${alternativeStyle}" class="text-gray icon-h-4 icon-w-4">
+                                        <use xlink:href="/etc/clientlibs/amadeus/commons/site/css/sprites/symbol/icons.svg#ic_external_link"
+                                             xmlns:xlink="http://www.w3.org/1999/xlink"></use>
+                                    </svg>
+                                </a>
+                            </div>
+                        </sly>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
